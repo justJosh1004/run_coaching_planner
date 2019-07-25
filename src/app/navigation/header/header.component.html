@@ -1,9 +1,15 @@
 <mat-toolbar color="primary" class="mat-elevation-z5">
-  <div><a routerLink="/">Eventually the name or logo</a></div>
+  <div>
+    <a class="header-link" routerLink="/">Eventually the name or logo</a>
+  </div>
   <div fxFlex fxLayout fxLayoutAlign="flex-end">
     <ul fxLayout fxLayoutGap="30px" class="navigation-items">
-      <li><a routerLink="/runners">Runners</a></li>
-      <li><a routerLink="/training-plans">Training Plans</a></li>
+      <li><a class="header-link" routerLink="/runners">Runners</a></li>
+      <li>
+        <a class="header-link" routerLink="/training-plans">Training Plans</a>
+      </li>
+      <li><a class="header-link" routerLink="/profile">Profile</a></li>
+      <li><a class="header-link" (click)="logout()">Logout</a></li>
     </ul>
   </div>
 </mat-toolbar>
