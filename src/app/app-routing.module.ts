@@ -9,6 +9,10 @@ const routes: Routes = [
   {
     path: 'training-plans',
     loadChildren: './training-plans/training-plans.module#TrainingPlansModule'
+  },
+  {
+    path: 'profile',
+    loadChildren: './profile/profile.module#ProfileModule'
   }
 ];
 

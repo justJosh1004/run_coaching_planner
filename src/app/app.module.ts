@@ -8,10 +8,9 @@ import { AppComponent } from './app.component';
 import { MaterialModule } from './material.module';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { HeaderComponent } from './navigation/header/header.component';
-import { ProfileComponent } from './profile/profile.component';
 
 @NgModule({
-  declarations: [AppComponent, WelcomeComponent, HeaderComponent, ProfileComponent],
+  declarations: [AppComponent, WelcomeComponent, HeaderComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
