@@ -81,6 +81,10 @@ export class AuthService {
   }
 
   logout() {
+    this.token = null;
+    clearTimeout(this.tokenTimer);
+    this.userId = null;
+    this.clearAuthData();
     this.store.dispatch(new Auth.SetUnauthenticated());
   }
 }
