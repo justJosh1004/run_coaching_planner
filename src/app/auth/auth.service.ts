@@ -8,17 +8,23 @@ import { AuthData } from './auth-data.model';
 import * as fromRoot from '../app.reducer';
 import * as Auth from './auth.actions';
 
-const BACKEND_URL = `${environment.apiUrl}/users`;
+const BACKEND_URL = `${environment.apiUrl}users`;
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+  private token: string;
+
   constructor(
     private store: Store<fromRoot.State>,
     private http: HttpClient,
     private router: Router
   ) {}
+
+  getToken() {
+    return this.token;
+  }
 
   createUser(email: string, password: string) {
     const authData: AuthData = { email, password };
