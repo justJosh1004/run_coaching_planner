@@ -35,6 +35,18 @@ export class AuthService {
     }, duration * 1000);
   }
 
+  private getAuthData() {
+    const token = localStorage.getItem('token');
+    const expirationDate = localStorage.getItem('expiration');
+    const userId = localStorage.getItem('userId');
+
+    if (!token || !expirationDate) {
+      return;
+    }
+
+    return { token, expirationDate: new Date(expirationDate), userId };
+  }
+
   private saveAuthData(token: string, expirationDate: Date, userId: string) {
     localStorage.setItem('token', token);
     localStorage.setItem('expiration', expirationDate.toISOString());
@@ -78,6 +90,22 @@ export class AuthService {
           this.router.navigate(['/']);
         }
       });
+  }
+
+  authLogin() {
+    const authInformation = this.getAuthData();
+    if (!authInformation) {
+      return;
+    }
+
+    const now = new Date();
+    const expiresIn = authInformation.expirationDate.getTime() - now.getTime();
+    if (expiresIn > 0) {
+      this.token = authInformation.token;
+      this.userId = authInformation.userId;
+      this.setAuthTimer(expiresIn / 1000);
+      this.store.dispatch(new Auth.SetAuthenticated());
+    }
   }
 
   logout() {
