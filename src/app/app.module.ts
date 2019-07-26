@@ -7,6 +7,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MaterialModule } from './material.module';
 import { HeaderComponent } from './navigation/header/header.component';
+import { StoreModule } from '@ngrx/store';
+import { reducers } from './app.reducer';
 
 @NgModule({
   declarations: [AppComponent, HeaderComponent],
@@ -15,7 +17,8 @@ import { HeaderComponent } from './navigation/header/header.component';
     AppRoutingModule,
     BrowserAnimationsModule,
     MaterialModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    StoreModule.forRoot(reducers)
   ],
   providers: [],
   bootstrap: [AppComponent]

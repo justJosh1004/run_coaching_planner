@@ -1,4 +1,8 @@
-<mat-toolbar color="primary" class="mat-elevation-z5">
+<mat-toolbar
+  color="primary"
+  class="mat-elevation-z5"
+  *ngIf="isAuthenticated$ | async"
+>
   <div>
     <a class="header-link" routerLink="/">Eventually the name or logo</a>
   </div>

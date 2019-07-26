@@ -1,1 +1,29 @@
-<p>login works!</p>
+<div fxFlex="300px">
+  <form
+    [formGroup]="form"
+    (submit)="login()"
+    fxLayout="column"
+    fxLayoutAlign="center center"
+    fxLayoutGap="10px"
+  >
+    <mat-form-field fxFill>
+      <input
+        matInput
+        type="email"
+        formControlName="email"
+        placeholder="Enter email here."
+      />
+    </mat-form-field>
+    <mat-form-field fxFill>
+      <input
+        matInput
+        type="password"
+        formControlName="password"
+        placeholder="Enter password here."
+      />
+    </mat-form-field>
+    <button mat-raised-button color="primary" type="submit">
+      Login
+    </button>
+  </form>
+</div>
