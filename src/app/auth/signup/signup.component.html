@@ -1,1 +1,41 @@
-<p>signup works!</p>
+<div fxLayout="column" fxFill fxLayoutAlign="center center">
+  <h2>Use a valid email address to create an account.</h2>
+  <div fxLayout="row" fxLayoutAlign="center center">
+    <div fxFlex="300px">
+      <form
+        [formGroup]="form"
+        (submit)="createUser()"
+        fxLayout="column"
+        fxLayoutAlign="center center"
+        fxLayoutGap="10px"
+      >
+        <mat-form-field fxFill>
+          <input
+            matInput
+            type="email"
+            formControlName="email"
+            placeholder="Enter email here."
+          />
+        </mat-form-field>
+        <mat-form-field fxFill>
+          <input
+            matInput
+            type="password"
+            formControlName="password"
+            placeholder="Enter password here."
+          />
+        </mat-form-field>
+        <div fxLayoutGap="10px">
+          <a routerLink="/">
+            <button mat-raised-button color="warn" type="button">
+              Cancel
+            </button></a
+          >
+          <button mat-raised-button color="primary" type="submit">
+            Create Account
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

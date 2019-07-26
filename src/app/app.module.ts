@@ -1,3 +1,4 @@
+import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -18,7 +19,8 @@ import { reducers } from './app.reducer';
     BrowserAnimationsModule,
     MaterialModule,
     FlexLayoutModule,
-    StoreModule.forRoot(reducers)
+    StoreModule.forRoot(reducers),
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

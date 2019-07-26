@@ -1,5 +1,6 @@
 <div
   fxLayout="column"
+  fxFill
   fxLayoutAlign="center center"
   *ngIf="!(isAuthenticated$ | async)"
 >
@@ -7,7 +8,8 @@
     This will eventually be the landing page. For now it will hold whatever I
     need it to.
   </h2>
-  <app-login fxLayout></app-login>
+  <app-login></app-login>
+  <p><a routerLink="/signup">Click here</a> to create an account.</p>
 </div>
 <div
   fxLayout="column"
