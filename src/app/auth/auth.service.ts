@@ -7,6 +7,7 @@ import { environment } from './../../environments/environment';
 import { AuthData } from './auth-data.model';
 import * as fromRoot from '../app.reducer';
 import * as Auth from './auth.actions';
+import { stringToKeyValue } from '@angular/flex-layout/extended/typings/style/style-transforms';
 
 const BACKEND_URL = `${environment.apiUrl}users`;
 
@@ -15,6 +16,8 @@ const BACKEND_URL = `${environment.apiUrl}users`;
 })
 export class AuthService {
   private token: string;
+  private tokenTimer: any;
+  private userId: string;
 
   constructor(
     private store: Store<fromRoot.State>,
@@ -26,6 +29,24 @@ export class AuthService {
     return this.token;
   }
 
+  private setAuthTimer(duration: number) {
+    this.tokenTimer = setTimeout(() => {
+      this.logout();
+    }, duration * 1000);
+  }
+
+  private saveAuthData(token: string, expirationDate: Date, userId: string) {
+    localStorage.setItem('token', token);
+    localStorage.setItem('expiration', expirationDate.toISOString());
+    localStorage.setItem('userId', userId);
+  }
+
+  private clearAuthData() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('expiration');
+    localStorage.removeItem('userId');
+  }
+
   createUser(email: string, password: string) {
     const authData: AuthData = { email, password };
     return this.http.post(`${BACKEND_URL}/signup`, authData).subscribe(() => {
@@ -34,7 +55,29 @@ export class AuthService {
   }
 
   login(authData: AuthData) {
-    this.store.dispatch(new Auth.SetAuthenticated());
+    this.http
+      .post<{ token: string; expiresIn: number; userId: string }>(
+        `${BACKEND_URL}/login`,
+        authData
+      )
+      .subscribe(response => {
+        const token = response.token;
+        this.token = token;
+
+        if (token) {
+          const expiresInDuration = response.expiresIn;
+          const now = new Date();
+          const expirationDate = new Date(
+            now.getTime() + expiresInDuration * 1000
+          );
+
+          this.setAuthTimer(expiresInDuration);
+          this.userId = response.userId;
+          this.saveAuthData(token, expirationDate, this.userId);
+          this.store.dispatch(new Auth.SetAuthenticated());
+          this.router.navigate(['/']);
+        }
+      });
   }
 
   logout() {
