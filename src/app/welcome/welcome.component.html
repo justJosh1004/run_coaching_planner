@@ -1,7 +1,19 @@
-<div fxLayout="column" fxLayoutAlign="center center">
+<div
+  fxLayout="column"
+  fxLayoutAlign="center center"
+  *ngIf="!(isAuthenticated$ | async)"
+>
   <h2>
     This will eventually be the landing page. For now it will hold whatever I
     need it to.
   </h2>
   <app-login fxLayout></app-login>
+</div>
+<div
+  fxLayout="column"
+  fxLayoutAlign="center center"
+  *ngIf="isAuthenticated$ | async"
+>
+  <h2>You are logged in!</h2>
+  <p>There will eventually be more content here.</p>
 </div>
